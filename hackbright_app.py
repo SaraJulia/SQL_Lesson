@@ -47,6 +47,21 @@ def query_for_student_grade(last_name, project_title):
     Project: %s
     Grade: %s """ % (row[0],row[1],row[2], row[3])
 
+def assign_grade(github, project_title, grade):
+    query = """INSERT INTO Grades (student_github, project_title, grade) VALUES (?,?,?)"""
+    DB.execute(query, (github, project_title, grade))
+    CONN.commit()
+    print "Successfully assigned %s grade to %s student for %s project." %(grade, github, project_title)
+
+def show_all_grades(last_name):
+    query = """SELECT * FROM GradesView WHERE last_name = ?"""
+    DB.execute(query, (last_name.strip(),))
+    rows = DB.fetchall()
+    for row in rows:
+        print """
+        Name: %s %s
+        Project: %s
+        Grade: %s """ % (row[0],row[1],row[2], row[3])
 
 def main():
     connect_to_db()
@@ -56,6 +71,7 @@ def main():
         tokens = input_string.split(',')
         command = tokens[0]
         args = tokens[1:]
+
 
         if command == "student":
             get_student_by_github(*args) 
@@ -67,7 +83,12 @@ def main():
             query_for_projects(*args)
         elif command == "get_grade":
             query_for_student_grade(*args)
-
+        elif command == "assign_grade":
+            assign_grade(*args)
+        elif command == "show_all_grades":
+            show_all_grades(*args)
+        else:
+            print "Please enter a valid command"
     CONN.close()
 
 if __name__ == "__main__":
