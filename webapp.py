@@ -6,13 +6,12 @@ app = Flask(__name__)
 @app.route("/student")
 def get_student():
     HB_app_copy.connect_to_db()
-    student_github = request.args.get("github")
-    print "student_github = ", student_github
-    row = HB_app_copy.get_student_by_github(student_github)
-    print "row = ", row
-    html = render_template("students_info.html", first_name=row[0],
-                                                last_name=row[1],
-                                                github=row[2])
+    student_last_name = request.args.get("last_name")
+    print "student_last_name = ", student_last_name
+    rows = HB_app_copy.show_all_grades(student_last_name)
+    print "rows = ", rows
+    html = render_template("students_info.html", all_projects = rows,
+                                                last_name = student_last_name)
     # return HB_app_copy.get_student_by_github(student_github)
     return html
 

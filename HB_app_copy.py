@@ -58,11 +58,12 @@ def show_all_grades(last_name):
     query = """SELECT * FROM GradesView WHERE last_name = ?"""
     DB.execute(query, (last_name.strip(),))
     rows = DB.fetchall()
-    for row in rows:
-        print """
-        Name: %s %s
-        Project: %s
-        Grade: %s """ % (row[0],row[1],row[2], row[3])
+    return rows
+    # for row in rows:
+    #     print """
+    #     Name: %s %s
+    #     Project: %s
+    #     Grade: %s """ % (row[0],row[1],row[2], row[3])
 
 def main():
     connect_to_db()
