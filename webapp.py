@@ -19,6 +19,13 @@ def get_student():
 def get_github():
     return render_template("get_github.html")
 
+@app.route("/projects")
+def get_projects(project_title):
+    HB_app_copy.connect_to_db() 
+    project_title=request.args.get("project_title")
+    return rows
+
+
 
 if __name__ == "__main__":
     app.run(debug = True)

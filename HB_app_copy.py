@@ -55,8 +55,21 @@ def assign_grade(github, project_title, grade):
     print "Successfully assigned %s grade to %s student for %s project." %(grade, github, project_title)
 
 def show_all_grades(last_name):
-    query = """SELECT * FROM GradesView WHERE last_name = ?"""
+    query = """SELECT * 
+               FROM Projects LEFT JOIN ReportCardView ON Projects.title=ReportCardView.title
+               WHERE ReportCardView.last_name = ?;"""
     DB.execute(query, (last_name.strip(),))
+    rows = DB.fetchall()
+    print rows
+    # for row in rows:
+    #     print """
+    #     Name: %s %s
+    #     Project: %s
+    #     Grade: %s """ % (row[0],row[1],row[2], row[3])
+
+def show_projects(project_title):
+    query = """SELECT * FROM GradesView WHERE project_title = ?"""
+    DB.execute(query, project_title)
     rows = DB.fetchall()
     return rows
     # for row in rows:
