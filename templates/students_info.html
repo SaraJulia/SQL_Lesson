@@ -1,0 +1,20 @@
+<html>
+<head>
+    </head>
+<h1>Student: {{last_name}}</h1>
+
+<table>
+   {% for project in all_projects %} 
+    <tr>
+        {% for field in project %}
+       <td><a href="/project">{{ field }}</a></td> 
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+<!--<h2>Github account: {{github}}</h2> -->
+
+
+    </body>
+</html>        
