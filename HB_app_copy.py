@@ -60,9 +60,9 @@ def show_all_grades(last_name):
                WHERE ReportCardView.last_name = ?;"""
     DB.execute(query, (last_name.strip(),))
     rows = DB.fetchall()
-    d = {}
     proj_list = []
     for row in rows:
+        d = {}
         d['first_name'] = row[0]
         d['last_name'] = row[1]
         d['project_id'] = row[2]

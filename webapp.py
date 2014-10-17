@@ -9,8 +9,10 @@ def get_student():
     student_last_name = request.args.get("last_name")
     print "student_last_name = ", student_last_name
     projects = HB_app_copy.show_all_grades(student_last_name)
-    print "projects[0] = ", projects[0]
-    print "projects[1] = ", projects[1]
+    print "total project list:", projects
+    for project in projects:
+        print "current project", project
+
     html = render_template("students_info.html", all_projects = projects,
                                                 last_name = student_last_name)
     # return HB_app_copy.get_student_by_github(student_github)
