@@ -43,7 +43,7 @@ def query_for_student_grade(last_name, project_title):
     query = """SELECT * FROM GradesView WHERE last_name = ? AND project_title = ?"""
     DB.execute(query, (last_name, project_title))
     row = DB.fetchone()
-    print """
+    prinput """
     Name: %s %s
     Project: %s
     Grade: %s """ % (row[0],row[1],row[2], row[3])

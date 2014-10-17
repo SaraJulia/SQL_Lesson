@@ -6,7 +6,7 @@
 <table>
    {% for project in all_projects %} 
     <tr>
-        <td>{{ project['first_name'] }} {{ project['last_name'] }}</td>
+        <td>{{ project['first_name'] }} {{ project['last_name']}}</td>
         <td>{{ project['last_name'] }}</td>
         <td><a href="/project?id={{ project['project_id'] }}">{{ project['project_title'] }}</a></td>
         <td>{{ project['grade'] }}</td> 
