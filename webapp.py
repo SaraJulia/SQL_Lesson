@@ -9,25 +9,43 @@ def get_student():
     student_last_name = request.args.get("last_name")
     # print "student_last_name = ", student_last_name
     projects = HB_app_copy.show_all_grades(student_last_name)
-    # print "total project list:", projects
-    #for project in projects:
-        # print "current project", project
 
     html = render_template("students_info.html", all_projects = projects,
                                                 last_name = student_last_name)
-    # return HB_app_copy.get_student_by_github(student_github)
     return html
 
 @app.route("/")
 def get_github():
     return render_template("get_github.html")
 
-@app.route("/projects")
-def get_projects(project_id):
+@app.route("/project")
+def get_projects():
     HB_app_copy.connect_to_db() 
-    project_title=request.args.get("project_id")
-    return rows
+    project_id=request.args.get("id")
+    project_info = HB_app_copy.show_projects(project_id)
+    ###TESTING CODE####
+    print "total project list:", project_info
+    for thing in project_info:
+        print "current project", thing
 
+    html = render_template("project.html", project_title = project_info[0],
+                                            description = project_info[1],
+                                            grades_list = project_info[2])
+    return html
+
+@app.route("/add_student")
+def add_student():
+    HB_app_copy.connect_to_db()
+    first_name = request.args.get("first_name")
+    last_name = request.args.get("last_name")
+    github = request.args.get("github")
+    ### TESTING CODE ###
+    print first_name, last_name, github
+    success = HB_app_copy.make_new_student(first_name, last_name, github)
+    html = render_template("add_student.html", message = success,
+                                                first_name = first_name,
+                                                last_name = last_name) 
+    return html
 
 
 if __name__ == "__main__":

@@ -1,0 +1,22 @@
+<html>
+<head>
+</head>
+<h1>Project: {{ project_title }}</h1>
+<h2>Description: {{ description }} </h2>
+
+<table>
+   {% for grade in grades_list %} 
+    <tr>
+        <td>{{ grade['first_name'] }}</td>
+        <td><a href="/student?last_name={{ grade['last_name'] }}">{{ grade['last_name'] }}</a></td>
+        <td>{{ grade['project_title'] }}</td>
+        <td>{{ grade['grade'] }}</td> 
+    </tr>
+    {% endfor %}
+</table>
+
+<!--<h2>Github account: {{github}}</h2> -->
+
+
+    </body>
+</html>        

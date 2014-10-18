@@ -21,7 +21,7 @@ def make_new_student(first_name, last_name, github):
     query = """INSERT into Students values (?, ?, ?)"""
     DB.execute(query, (first_name, last_name, github))
     CONN.commit()
-    print "Successfully added student: %s %s" % (first_name, last_name)
+    return "Success!"
 
 def add_a_project(title, description, max_grade):
     query = """INSERT into Projects (title, description, max_grade) VALUES (?, ?, ?)"""
@@ -84,13 +84,19 @@ def show_projects(project_id):
                WHERE Projects.id = ?"""
     DB.execute(query, project_id)
     rows = DB.fetchall()
-    print rows
-    # for row in rows:
-    #     print """
-    #     Name: %s %s
-    #     Project: %s
-    #     Grade: %s """ % (row[0],row[1],row[2], row[3])
+    name = rows[0][2]
+    description = rows[0][6]
+    proj_list = []
+    for row in rows:
+        d = {}
+        d['first_name'] = row[0]
+        d['last_name'] = row[1]
+        d['grade'] = row[3]
+        proj_list.append(d)
+    final_list = [name, description, proj_list]
+    return final_list
 
+ 
 def main():
     connect_to_db()
     command = None
