@@ -43,7 +43,7 @@ def query_for_student_grade(last_name, project_title):
     query = """SELECT * FROM GradesView WHERE last_name = ? AND project_title = ?"""
     DB.execute(query, (last_name, project_title))
     row = DB.fetchone()
-    prinput """
+    print """
     Name: %s %s
     Project: %s
     Grade: %s """ % (row[0],row[1],row[2], row[3])
@@ -77,11 +77,14 @@ def show_all_grades(last_name):
     #     Project: %s
     #     Grade: %s """ % (row[0],row[1],row[2], row[3])
 
-def show_projects(project_title):
-    query = """SELECT * FROM GradesView WHERE project_title = ?"""
-    DB.execute(query, project_title)
+def show_projects(project_id):
+    query = """SELECT *
+               FROM GradesView LEFT JOIN Projects 
+               ON (GradesView.project_title = Projects.title) 
+               WHERE Projects.id = ?"""
+    DB.execute(query, project_id)
     rows = DB.fetchall()
-    return rows
+    print rows
     # for row in rows:
     #     print """
     #     Name: %s %s
@@ -112,6 +115,8 @@ def main():
             assign_grade(*args)
         elif command == "show_all_grades":
             show_all_grades(*args)
+        elif command == "project_list":
+            show_projects(*args)
         else:
             print "Please enter a valid command"
     CONN.close()
