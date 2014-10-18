@@ -27,7 +27,7 @@ def add_a_project(title, description, max_grade):
     query = """INSERT into Projects (title, description, max_grade) VALUES (?, ?, ?)"""
     DB.execute(query, (title, description, max_grade))
     CONN.commit()
-    print "Successfully added project title: %s" % (title)
+    return "Success!"
 
 def query_for_projects(title):
     query = """SELECT * FROM Projects WHERE title = ?"""
